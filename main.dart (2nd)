@@ -1,0 +1,97 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(RestaurantVotingApp());
+}
+
+class RestaurantVotingApp extends StatelessWidget {
+  const RestaurantVotingApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Restaurant Voting System',
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        primaryColor: Colors.deepPurple,
+        scaffoldBackgroundColor: Colors.grey[100],
+        textTheme: TextTheme(
+          titleLarge: TextStyle(
+              fontSize: 24, fontWeight: FontWeight.bold, color: Colors.black),
+          bodyMedium: TextStyle(fontSize: 18, color: Colors.black87),
+        ),
+        appBarTheme: AppBarTheme(
+          backgroundColor: Colors.deepPurple,
+          titleTextStyle: TextStyle(
+              fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
+          elevation: 4,
+        ),
+      ),
+      home: VotingScreen(),
+    );
+  }
+}
+
+class VotingScreen extends StatefulWidget {
+  const VotingScreen({super.key});
+
+  @override
+  VotingScreenState createState() => VotingScreenState();
+}
+
+class VotingScreenState extends State<VotingScreen> {
+  List<String> restaurantNames = ['Jollibee', 'Mcdo', 'Mang Inasal', 'Chowking'];
+  List<String> restaurantImages = [
+    'assets/image1.png',
+    'assets/image2.jpg',
+    'assets/image3.png',
+    'assets/image4.png'
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('Restaurant Voting System')),
+      body: Container(
+        color: Color.fromARGB(255, 212, 110, 205),
+        child: Center(
+          child: ListView.builder(
+            shrinkWrap: true,
+            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+            itemCount: restaurantNames.length,
+            itemBuilder: (context, index) {
+              return Card(
+                margin: EdgeInsets.symmetric(vertical: 12),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12)),
+                color: Colors.pink[100],
+                elevation: 4,
+                child: ListTile(
+                  contentPadding:
+                      EdgeInsets.symmetric(vertical: 20, horizontal: 24),
+                  leading: ClipRRect(
+                    borderRadius: BorderRadius.circular(6),
+                    child: Image.asset(
+                      restaurantImages[index],
+                      width: 100,
+                      height: 100,
+                      fit: BoxFit.contain,
+                      errorBuilder: (context, error, stackTrace) =>
+                          Icon(Icons.error, color: Colors.red, size: 80),
+                    ),
+                  ),
+                  title: Text(restaurantNames[index],
+                      style: Theme.of(context).textTheme.titleLarge),
+                  trailing: IconButton(
+                    icon: Icon(Icons.thumb_up, color: Colors.white, size: 36),
+                    onPressed: () {},
+                  ),
+                ),
+              );
+            },
+          ),
+        ),
+      ),
+    );
+  }
+}
